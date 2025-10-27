@@ -1,0 +1,28 @@
+<div class="task-form-container">
+  <h2>➕ Ajouter une nouvelle tâche</h2>
+  
+  <form (ngSubmit)="onSubmit()" class="task-form">
+    <div class="input-group">
+      <input 
+        type="text" 
+        [(ngModel)]="newTaskTitle" 
+        (keypress)="onKeyPress($event)"
+        placeholder="Entrez le titre de votre tâche..."
+        class="task-input"
+        [disabled]="loading"
+        name="taskTitle">
+      
+      <button 
+        type="submit" 
+        [disabled]="loading || !newTaskTitle.trim()"
+        class="add-btn">
+        <span *ngIf="!loading">➕ Ajouter</span>
+        <span *ngIf="loading">⏳ Ajout...</span>
+      </button>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  </form>
+</div>

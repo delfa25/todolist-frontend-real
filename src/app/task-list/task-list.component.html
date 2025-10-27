@@ -1,0 +1,64 @@
+<div class="task-list-container">
+  <div class="header">
+    <h1>📝 ToDoList</h1>
+    <div class="stats">
+      <span class="total">Total: {{ tasks.length }}</span>
+      <span class="pending">En attente: {{ pendingTasks.length }}</span>
+      <span class="completed">Terminées: {{ completedTasks.length }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des tâches...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadTasks()" class="retry-btn">Réessayer</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="tasks-section">
+    <!-- Tâches en attente -->
+    <div class="tasks-group" *ngIf="pendingTasks.length > 0">
+      <h2>🔄 En attente ({{ pendingTasks.length }})</h2>
+      <div class="task-item" *ngFor="let task of pendingTasks">
+        <div class="task-content">
+          <input 
+            type="checkbox" 
+            [checked]="task.completed" 
+            (change)="toggleTask(task)"
+            class="task-checkbox">
+          <span class="task-title">{{ task.title }}</span>
+        </div>
+        <button (click)="deleteTask(task)" class="delete-btn" title="Supprimer">
+          🗑️
+        </button>
+      </div>
+    </div>
+
+    <!-- Tâches terminées -->
+    <div class="tasks-group" *ngIf="completedTasks.length > 0">
+      <h2>✅ Terminées ({{ completedTasks.length }})</h2>
+      <div class="task-item completed" *ngFor="let task of completedTasks">
+        <div class="task-content">
+          <input 
+            type="checkbox" 
+            [checked]="task.completed" 
+            (change)="toggleTask(task)"
+            class="task-checkbox">
+          <span class="task-title">{{ task.title }}</span>
+        </div>
+        <button (click)="deleteTask(task)" class="delete-btn" title="Supprimer">
+          🗑️
+        </button>
+      </div>
+    </div>
+
+    <!-- Message si aucune tâche -->
+    <div *ngIf="tasks.length === 0" class="no-tasks">
+      <p>🎉 Aucune tâche pour le moment !</p>
+      <p>Ajoutez votre première tâche ci-dessous.</p>
+    </div>
+  </div>
+</div>
