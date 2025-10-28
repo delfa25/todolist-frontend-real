@@ -7,7 +7,8 @@ import { Task } from '../models/task.model';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:8000/api/tasks';
+  // REMPLACEZ 'http://localhost:8000' par l'URL DE VOTRE BACKEND RENDER/RAILWAY
+  private apiUrl = 'https://YOUR_RENDER_BACKEND_URL/api/tasks'; 
 
   constructor(private http: HttpClient) { }
 
