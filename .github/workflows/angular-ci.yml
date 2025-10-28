@@ -53,9 +53,17 @@ jobs:
     - name: Build Angular app
       run: npm run build
 
+    - name: List build directory contents
+      run: ls -R dist/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist/todolist-frontend-real
+        # Permettre au GITHUB_TOKEN de créer et pousser sur la branche gh-pages
+      permissions:
+        contents: write
+        pages: write
+        id-token: write # Nécessaire pour l'authentification si vous utilisez OIDC
