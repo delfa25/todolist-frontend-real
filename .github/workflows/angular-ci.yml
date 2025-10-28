@@ -37,6 +37,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write # Nécessaire pour l'authentification si vous utilisez OIDC
 
     steps:
     - uses: actions/checkout@v4
@@ -62,8 +66,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist/todolist-frontend-real
-        # Permettre au GITHUB_TOKEN de créer et pousser sur la branche gh-pages
-      permissions:
-        contents: write
-        pages: write
-        id-token: write # Nécessaire pour l'authentification si vous utilisez OIDC
